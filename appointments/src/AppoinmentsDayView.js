@@ -5,35 +5,65 @@ const appointmentTimeOfDay = (starAt) => {
   return `${h}:${m}`;
 };
 export const Appointment = ({
-  customer: { firstName, phoneNumber, stylist, service, notes, startAt },
+  customer,
+  stylist,
+  service,
+  notes,
+  startsAt,
 }) => (
-  <>
-    <h1>Today's appointment at: {startAt}</h1>
-    <div>{firstName}</div>
-    <div>{phoneNumber}</div>
-    <div>{stylist}</div>
-    <div>{service}</div>
-    <div>{notes}</div>
-  </>
+  <div id="appointmentView">
+    <h3>Today’s appointment at: {appointmentTimeOfDay(startsAt)}</h3>
+    <table>
+      <tbody>
+        <tr>
+          <td>Customer</td>
+          <td>
+            <p>
+              {customer.firstName} {customer.lastName}
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>Phone Number</td>
+          <td>{customer.phoneNumber}</td>
+        </tr>
+        <tr>
+          <td>Stylist</td>
+          <td>{stylist}</td>
+        </tr>
+        <tr>
+          <td>Service</td>
+          <td>{service}</td>
+        </tr>
+        <tr>Notes</tr>
+        <tr>{notes}</tr>
+      </tbody>
+    </table>
+  </div>
 );
 
-export const AppointmentsDayView = ({ appoinments }) => {
+export const AppointmentsDayView = ({ appointments }) => {
   const [selectedAppointment, setSelectedAppointment] = useState(0);
+
   return (
-    <div id="appoinmentsDayView">
+    <div id="appointmentsDayView">
       <ol>
-        {appoinments.map((appoinment, i) => (
-          <li key={appoinment.startAt}>
-            <button type="button" onClick={() => setSelectedAppointment(i)}>
-              {appointmentTimeOfDay(appoinment.startAt)}
+        {appointments.map((appointment, i) => (
+          <li key={appointment.startsAt}>
+            <button
+              className={i === selectedAppointment ? "toggled" : ""}
+              type="button"
+              onClick={() => setSelectedAppointment(i)}
+            >
+              {appointmentTimeOfDay(appointment.startsAt)}
             </button>
           </li>
         ))}
       </ol>
-      {appoinments.length === 0 ? (
+      {appointments.length === 0 ? (
         <p>There are no appointments scheduled for today.</p>
       ) : (
-        <Appointment {...appoinments[selectedAppointment]} />
+        <Appointment {...appointments[selectedAppointment]} />
       )}
     </div>
   );
