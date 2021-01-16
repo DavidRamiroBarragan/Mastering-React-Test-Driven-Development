@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDoM from "react-dom";
 import ReactTestUtils from "react-dom/test-utils";
-import { Appointment, AppointmentsDayView } from "../src/Appointment";
+import { Appointment, AppointmentsDayView } from "../src/AppoinmentsDayView";
 
 let customer;
 let container;
