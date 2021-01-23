@@ -3,7 +3,14 @@ import React from "react";
 export const CustomForm = ({ firstName }) => {
   return (
     <form id="customer">
-      <input type="text" name="firstName" value={firstName} readOnly />
+      <label htmlFor="firstName">First Name</label>
+      <input
+        id="firstName"
+        type="text"
+        name="firstName"
+        value={firstName}
+        readOnly
+      />
     </form>
   );
 };
